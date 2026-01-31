@@ -4,7 +4,7 @@ import pandas as pd
 
 app = Flask(__name__)
 
-# -------- LOAD ARTIFACTS --------
+
 model = joblib.load("model.pkl")
 scaler = joblib.load("scaler.pkl")
 expected_features = joblib.load("columns.pkl")
@@ -16,7 +16,7 @@ def home():
 
     if request.method == "POST":
 
-        # -------- GET FORM DATA --------
+        
         Age = int(request.form["Age"])
         RestingBP = int(request.form["RestingBP"])
         Cholesterol = int(request.form["Cholesterol"])
@@ -30,12 +30,12 @@ def home():
         ExerciseAngina = request.form["ExerciseAngina"]
         ST_Slope = request.form["ST_Slope"]
 
-        # -------- BUILD INPUT VECTOR --------
+        
         input_df = pd.DataFrame(
             0.0, index=[0], columns=expected_features, dtype=float
         )
 
-        # Numeric features
+        
         input_df.loc[0, [
             "Age", "RestingBP", "Cholesterol",
             "FastingBS", "MaxHR", "Oldpeak"
@@ -44,7 +44,7 @@ def home():
             FastingBS, MaxHR, Oldpeak
         ]
 
-        # -------- ONE-HOT ENCODING --------
+        
         categorical_features = {
             f"Sex_{Sex}": 1,
             f"ChestPainType_{ChestPainType}": 1,
@@ -57,7 +57,7 @@ def home():
             if col in input_df.columns:
                 input_df[col] = val
 
-        # -------- SCALE + PREDICT --------
+        
         scaled_input = scaler.transform(input_df)
         prob = model.predict_proba(scaled_input)[0][1]
 
