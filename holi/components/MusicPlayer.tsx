@@ -69,31 +69,32 @@ export function MusicPlayer({ song = "/romantic-instrumental.mp3" }: { song?: st
           aria-label={muted ? 'Unmute music' : 'Mute music'}
         >
           <AnimatePresence mode="wait">
-          {muted ? (
-            <motion.span
-              key="muted"
-              initial={{ opacity: 0, scale: 0.7 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.7 }}
-              transition={{ duration: 0.3 }}
-              className="material-symbols-outlined"
-            >
-              volume_off
-            </motion.span>
-          ) : (
-            <motion.span
-              key="unmuted"
-              initial={{ opacity: 0, scale: 0.7 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.7 }}
-              transition={{ duration: 0.3 }}
-              className="material-symbols-outlined"
-            >
-              volume_up
-            </motion.span>
-          )}
-        </AnimatePresence>
-      </button>
-    </div>
+            {muted ? (
+              <motion.span
+                key="muted"
+                initial={{ opacity: 0, scale: 0.7 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.7 }}
+                transition={{ duration: 0.3 }}
+                className="material-symbols-outlined"
+              >
+                volume_off
+              </motion.span>
+            ) : (
+              <motion.span
+                key="unmuted"
+                initial={{ opacity: 0, scale: 0.7 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.7 }}
+                transition={{ duration: 0.3 }}
+                className="material-symbols-outlined"
+              >
+                volume_up
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </button>
+      </div>
+    </>
   );
 }
