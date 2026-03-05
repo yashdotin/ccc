@@ -5,7 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 export function MusicPlayer({ song = "/mere-naam-tu.mp3" }: { song?: string }) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [muted, setMuted] = useState(true);
-  const [started, setStarted] = useState(false);
+  const [playing, setPlaying] = useState(false);
+  const [userInteracted, setUserInteracted] = useState(false);
 
   const startMusic = async () => {
     if (!audioRef.current) return;
@@ -14,10 +15,11 @@ export function MusicPlayer({ song = "/mere-naam-tu.mp3" }: { song?: string }) {
       audioRef.current.muted = false;
       audioRef.current.volume = 0.15;
       await audioRef.current.play();
+
       setMuted(false);
-      setStarted(true);
+      setUserInteracted(true);
     } catch (err) {
-      console.log("Audio play blocked:", err);
+      console.log("Audio blocked:", err);
     }
   };
 
@@ -31,7 +33,7 @@ export function MusicPlayer({ song = "/mere-naam-tu.mp3" }: { song?: string }) {
 
   return (
     <>
-      {!started && (
+      {!userInteracted && (
         <div
           onClick={startMusic}
           onTouchStart={startMusic}
@@ -42,9 +44,17 @@ export function MusicPlayer({ song = "/mere-naam-tu.mp3" }: { song?: string }) {
         </div>
       )}
 
-      <audio ref={audioRef} src={song} loop playsInline />
-
       <div className="fixed top-4 right-4 z-50 flex items-center gap-2 bg-white/60 backdrop-blur-md rounded-full px-4 py-2 shadow-glass">
+        <audio
+          ref={audioRef}
+          src={song}
+          loop
+          playsInline
+          muted={muted}
+          onPlay={() => setPlaying(true)}
+          onPause={() => setPlaying(false)}
+        />
+
         <button
           onClick={toggleMute}
           className="focus:outline-none text-pink hover:text-purple transition-colors"

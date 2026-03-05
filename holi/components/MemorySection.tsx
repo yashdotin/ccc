@@ -47,9 +47,9 @@ export function MemorySection() {
             </h3>
 
             <motion.p
-              animate={{ opacity: active === idx ? 1 : 0 }}
-              transition={{ duration: 0.4 }}
-              className="text-lg text-purple font-light text-center"
+              className={`text-lg text-purple font-light text-center transition-opacity duration-500 ${
+                active === idx ? "opacity-100" : "opacity-0"
+              } md:group-hover:opacity-100`}
             >
               {memory.text}
             </motion.p>

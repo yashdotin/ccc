@@ -24,7 +24,7 @@ export function HoliSlideshow() {
   useEffect(() => {
     const timer = setInterval(() => {
       setIndex((i) => (i + 1) % images.length);
-    }, 3200);
+    }, 7000);
     return () => clearInterval(timer);
   }, []);
 
