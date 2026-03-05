@@ -49,20 +49,9 @@ export function MusicPlayer({ song = "/romantic-instrumental.mp3" }: { song?: st
     <>
       {/* Overlay for tap to start music */}
       {!userInteracted && (
-        <button
-          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 text-white text-2xl font-romantic animate-glow select-none cursor-pointer"
-          style={{ backdropFilter: 'blur(4px)' }}
-          onClick={() => {
-            if (audioRef.current) {
-              audioRef.current.muted = false;
-              audioRef.current.play();
-            }
-            setMuted(false);
-            setUserInteracted(true);
-          }}
-        >
-          Tap to start music 🎵
-        </button>
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 text-white text-2xl font-romantic animate-glow select-none cursor-pointer" style={{backdropFilter: 'blur(4px)'}}>
+          Tap anywhere to start music 🎵
+        </div>
       )}
       <div className="fixed top-4 right-4 z-50 flex items-center gap-2 bg-white/60 backdrop-blur-md rounded-full px-4 py-2 shadow-glass">
         <audio
